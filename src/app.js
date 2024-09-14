@@ -1,7 +1,12 @@
 import express from 'express';
 
+import path from 'path' ;
+import {dirname} from 'path';
+import { fileURLToPath } from 'url';
+
 import productsRouter from './routes/products.router.js';
 import cartRouter from './routes/cart.router.js';
+
 
 
 const app = express();
@@ -17,3 +22,11 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/api/products', productsRouter);
 app.use('/api/cart',cartRouter);
+
+ // implementar archivos estaticos
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const publicPath = path.join(__dirname, 'public');
+
+app.use('/static', express.static(publicPath))
+
+
